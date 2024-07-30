@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { NavLink } from 'react-router-dom'
 type Props = {
   navigations : {name: string, href: string}[]
 }
@@ -9,7 +9,7 @@ function NavItems({navigations}: Props) {
     <ul className="navbar-nav mr-auto">
       {navigations.map(({name, href}) => (
         <li className="nav-item" key={name}>
-          <a className="nav-link" href={href}>{name}</a>
+          <NavLink to={href} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>{name}</NavLink>
         </li>
       ))}
     </ul>
