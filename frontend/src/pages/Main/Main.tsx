@@ -1,4 +1,5 @@
 import { useState,useEffect } from 'react'
+import Banner from '../../components/Banner/Banner'
 
 type Props = {}
 
@@ -9,7 +10,7 @@ const Main = (props: Props) => {
 	const [categories, setCategories] = useState([])
 	const [activeCategory, setActiveCategory] = useState(0)
   useEffect(() => {
-    fetch('http://127.0.0.1:7070/api/top-sales')
+    fetch('http://localhost:7070/api/top-sales')
       .then(response => response.json())
       .then(data => {
         setTopSales(data);
@@ -25,10 +26,7 @@ const Main = (props: Props) => {
     <main className="container">
 			<div className="row">
 				<div className="col">
-					<div className="banner">
-						<img src="../../img/banner.jpg" className="img-fluid" alt="К весне готовы!"/>
-						<h2 className="banner-header">К весне готовы!</h2>
-					</div>
+					<Banner/>
 					{loading?
 					<section className="top-sales">
 						<h2 className="text-center">Хиты продаж!</h2>
