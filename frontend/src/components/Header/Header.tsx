@@ -1,18 +1,17 @@
-import Nav from "../Nav/Nav"
+import Nav from "../Nav/Nav";
 
-
-type Props = {}
+type Props = {};
 
 function Header({}: Props) {
   return (
     <header className="container">
-    <div className="row">
-      <div className="col">
-        <Nav/>
+      <div className="row">
+        <div className="col">
+          <Nav />
+        </div>
       </div>
-    </div>
-  </header>
-  )
+    </header>
+  );
 }
 
-export default Header
+export default Header;

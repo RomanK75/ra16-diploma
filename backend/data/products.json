@@ -1263,7 +1263,7 @@
             },
             {
                 "size": "20 US",
-                "available": false
+                "available": true
             }
         ]
     },

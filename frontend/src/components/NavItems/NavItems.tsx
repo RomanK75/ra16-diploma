@@ -1,19 +1,26 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from "react";
+import { NavLink } from "react-router-dom";
 type Props = {
-  navigations : {name: string, href: string}[]
-}
+  navigations: { name: string; href: string }[];
+};
 
-function NavItems({navigations}: Props) {
+function NavItems({ navigations }: Props) {
   return (
     <ul className="navbar-nav mr-auto">
-      {navigations.map(({name, href}) => (
+      {navigations.map(({ name, href }) => (
         <li className="nav-item" key={name}>
-          <NavLink to={href} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>{name}</NavLink>
+          <NavLink
+            to={href}
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            {name}
+          </NavLink>
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
-export default NavItems
+export default NavItems;
