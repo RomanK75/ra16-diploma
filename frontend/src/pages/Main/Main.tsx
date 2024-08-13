@@ -2,11 +2,8 @@ import { useState, useEffect } from "react";
 import Banner from "../../components/Banner/Banner";
 import Catalog from "../../components/Catalog/Catalog";
 
-type Props = {};
-
-const Main = (props: Props) => {
+const Main = () => {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [topSales, setTopSales] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -14,9 +11,7 @@ const Main = (props: Props) => {
         const [topSalesResponse] = await Promise.all([
           fetch("http://localhost:7070/api/top-sales"),
         ]);
-        const [topSalesData] = await Promise.all([
-          topSalesResponse.json(),
-        ]);
+        const [topSalesData] = await Promise.all([topSalesResponse.json()]);
         setTopSales(topSalesData);
         setLoading(false);
       } catch (error) {
@@ -57,7 +52,10 @@ const Main = (props: Props) => {
                       <div className="card-body">
                         <p className="card-text">{item.title}</p>
                         <p className="card-text">{item.price} руб.</p>
-                        <a href={`/product/${item.id}`} className="btn btn-outline-primary">
+                        <a
+                          href={`/product/${item.id}`}
+                          className="btn btn-outline-primary"
+                        >
                           Заказать
                         </a>
                       </div>

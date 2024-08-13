@@ -1,8 +1,4 @@
-import React from "react";
-
-type Props = {};
-
-const Banner = (props: Props) => {
+const Banner = () => {
   return (
     <div className="banner">
       <img

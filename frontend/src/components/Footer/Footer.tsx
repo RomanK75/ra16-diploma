@@ -1,9 +1,6 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
-type Props = {};
-
-const Footer = (props: Props) => {
+const Footer = () => {
   return (
     <footer className="container bg-light footer">
       <div className="row">

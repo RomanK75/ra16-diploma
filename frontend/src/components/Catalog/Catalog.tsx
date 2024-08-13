@@ -1,10 +1,21 @@
+import { useLocation } from "react-router-dom";
 import { useCatalog } from "../../hooks/useCatalog";
+import { useSearch } from "../../hooks/useSearch";
 
-type Props = {};
+const Catalog = () => {
+  const {
+    loading,
+    category,
+    items,
+    categories,
+    setCategory,
+    handleLoadMore,
+    setOffset,
+  } = useCatalog();
 
-const Catalog = (props: Props) => {
-  const { loading, category, items, categories, setCategory, handleLoadMore } =
-    useCatalog();
+  const { handleSearchInputChange, handleSearchFormSubmit } = useSearch();
+
+  const location = useLocation();
 
   return (
     <section className="catalog">
@@ -21,6 +32,18 @@ const Catalog = (props: Props) => {
       ) : (
         <div>
           <h2 className="text-center">Каталог</h2>
+          {location.pathname.startsWith("/catalog") && (
+            <form
+              className="catalog-search-form form-inline"
+              onSubmit={handleSearchFormSubmit}
+            >
+              <input
+                className="form-control "
+                placeholder="Поиск"
+                onChange={handleSearchInputChange}
+              />
+            </form>
+          )}
           <ul className="catalog-categories nav justify-content-center">
             <li className="nav-item">
               <a
@@ -28,19 +51,21 @@ const Catalog = (props: Props) => {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
+                  setOffset(0);
                   setCategory(0);
                 }}
               >
                 Все
               </a>
             </li>
-            {categories.map((item: any) => (
-              <li className="nav-item" key={item.id}>
+            {categories.map((item: any, index: number) => (
+              <li className="nav-item" key={index}>
                 <a
                   className={`nav-link ${category === item.id ? "active" : ""}`}
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
+                    setOffset(0);
                     setCategory(item.id);
                   }}
                 >
@@ -51,8 +76,15 @@ const Catalog = (props: Props) => {
           </ul>
           <div className="row">
             {/* TODO: fix image size */}
-            {items.map((item: any) => (
-              <div className="col-4" key={item.id}>
+            {items?.length === 0 && (
+              <div className="col">
+                <h3 className="text-center ">
+                  По вашему запросу ничего не найдено
+                </h3>
+              </div>
+            )}
+            {items.map((item: any, index: number) => (
+              <div className="col-4" key={index}>
                 <div className="card catalog-item-card">
                   <img
                     src={item.images[0]}
@@ -62,7 +94,10 @@ const Catalog = (props: Props) => {
                   <div className="card-body">
                     <p className="card-text">{item.title}</p>
                     <p className="card-text">{item.price} руб.</p>
-                    <a href={`/product/${item.id}`} className="btn btn-outline-primary">
+                    <a
+                      href={`/product/${item.id}`}
+                      className="btn btn-outline-primary"
+                    >
                       Заказать
                     </a>
                   </div>

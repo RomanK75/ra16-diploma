@@ -1,27 +1,24 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import Item from "../../types/Item";
 
-
-type Props = {};
-
-const Product = (props: Props) => {
+const Product = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [item, setItem] = useState<Item>();
   const [count, setCount] = useState(1);
-  const [size, setSize] = useState('');
-  
+  const [size, setSize] = useState("");
+
   const addToBasket = () => {
-    if (size === '') {
-      alert('Выберите размер');
+    if (size === "") {
+      alert("Выберите размер");
       return;
     }
     const cartItem = { ...item, count, size };
-    console.log('ITEM CHEKC:', cartItem);
+    console.log("ITEM CHEKC:", cartItem);
     dispatch(addToCart(cartItem));
   };
 
@@ -45,22 +42,23 @@ const Product = (props: Props) => {
   const sizeSelect = (e: any) => {
     e.preventDefault();
     setSize(e.target.textContent);
+    const orderButton = document.getElementById("order-button");
+    orderButton?.classList.remove("disabled");
+    const prevSelected = document.querySelector(".selected");
+    prevSelected?.classList.remove("selected");
+    e.target.classList.toggle("selected");
     console.log(size);
-  }
+  };
   return (
     <main className="container">
       <div className="row">
         <div className="col">
-          <Banner/>
+          <Banner />
           <section className="catalog-item">
             <h2 className="text-center">{item.title}</h2>
             <div className="row">
               <div className="col-5">
-                <img
-                  src={item.images[0]}
-                  className="img-fluid"
-                  alt=""
-                />
+                <img src={item.images[0]} className="img-fluid" alt="" />
               </div>
               <div className="col-7">
                 <table className="table table-bordered">
@@ -94,26 +92,49 @@ const Product = (props: Props) => {
                 <div className="text-center">
                   <p>
                     Размеры в наличии:{" "}
-                    {item.sizes.map((size) => (
-                        size.available ? <span className="catalog-item-size" onClick={sizeSelect}>{size.size}</span> : null
-                    ))}
+                    {item.sizes.map((size) =>
+                      size.available ? (
+                        <span
+                          className="catalog-item-size"
+                          onClick={sizeSelect}
+                        >
+                          {size.size}
+                        </span>
+                      ) : null,
+                    )}
                   </p>
                   <p>
                     Количество:{" "}
                     <span className="btn-group btn-group-sm pl-2">
-                      <button className="btn btn-secondary" onClick={() =>count !==1? setCount(count - 1):{}}>-</button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => (count !== 1 ? setCount(count - 1) : {})}
+                      >
+                        -
+                      </button>
                       <span className="btn btn-outline-primary">{count}</span>
-                      <button className="btn btn-secondary" onClick={() => setCount(count + 1)}>+</button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => setCount(count + 1)}
+                      >
+                        +
+                      </button>
                     </span>
                   </p>
                   <p>
-                    Цена: <span className="catalog-item-price">{item.price} руб.</span>
+                    Цена:{" "}
+                    <span className="catalog-item-price">
+                      {item.price} руб.
+                    </span>
                   </p>
                 </div>
-                <button className="btn btn-danger btn-block btn-lg" onClick={() => addToBasket()}>
+                <button
+                  id="order-button"
+                  className="btn btn-danger btn-block btn-lg disabled"
+                  onClick={() => addToBasket()}
+                >
                   В корзину
                 </button>
-                <p>Размер : {size}</p>
               </div>
             </div>
           </section>

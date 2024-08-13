@@ -6,7 +6,6 @@ import About from "./pages/About/About";
 import Contacts from "./pages/Contacts/Contacts";
 import CatalogPage from "./pages/CatalogPage/CatalogPage";
 import CartPage from "./pages/Cart/CartPage";
-import "./App.css";
 import Product from "./pages/Product/Product";
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/catalog" element={<CatalogPage />} />
+        <Route path="/catalog/:search?" element={<CatalogPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/product/:id" element={<Product />} />

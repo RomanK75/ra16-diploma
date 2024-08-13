@@ -1,10 +1,10 @@
 import Item from "./Item";
 
-export type CartItem  = Item & {
+export type CartItem = Item & {
   count: number;
-  size : string;
-}
+  size: string;
+};
 
 type CartList = CartItem[];
 
-export default CartList ;
+export default CartList;

@@ -1,9 +1,6 @@
-import React from "react";
 import Banner from "../../components/Banner/Banner";
 
-type Props = {};
-
-const About = (props: Props) => {
+const About = () => {
   return (
     <main className="container">
       <div className="row">

@@ -1,9 +1,6 @@
-import React from "react";
 import Catalog from "../../components/Catalog/Catalog";
 
-type Props = {};
-
-const CatalogPage = (props: Props) => {
+const CatalogPage = () => {
   return (
     <main className="container">
       <div className="row">
